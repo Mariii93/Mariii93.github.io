@@ -44,14 +44,14 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 
 },{
-    "basemap.at Overlay" : myLayers.bmapoverlay, //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
-});
+    "basemap.at Overlay" : myLayers.bmapoverlay, 
+},{collapsed: false}); //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
+
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
 
 
 myMap.setView([47.267,11.383], 11); //http://leafletjs.com/reference-1.3.0.html#locate-options-setview
 
-L.control.layers({collapsed:false})
 
 L.control.scale({maxWidth: 200, imperial: false, position: 'bottomleft'}).addTo(myMap) 
 //http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
