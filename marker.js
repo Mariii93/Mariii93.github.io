@@ -1,6 +1,6 @@
 
 let myMap = L.map("mapdiv"); //http://leafletjs.com/reference-1.3.0.html#map-l-map
-
+let markerGroup = L.featureGroup();
 let myLayers = {
     osm : L.tileLayer ("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"), //http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         subdomains: ["maps","maps1","maps2","maps3","maps4"], 
@@ -34,6 +34,7 @@ let myLayers = {
     ),
     }
 myMap.addLayer(myLayers.osm); //http://leafletjs.com/reference-1.3.0.html#layergroup-addlayer
+myMap.addLayer(markerGroup);
 
 let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
     "Openstreetmap" : myLayers.osm,
@@ -44,7 +45,8 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap.at Orthofoto" : myLayers.bmaporthofoto30cm,
 
 },{
-    "basemap.at Overlay" : myLayers.bmapoverlay, 
+    "basemap.at Overlay" : myLayers.bmapoverlay,
+    "Marker" : markerGroup, 
 },{collapsed: false}); //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
 
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
@@ -65,12 +67,22 @@ L.control.scale({
 const uni = [47.264, 11.385];
 const usi = [47.257, 11.356];
 const technik = [47.263, 11.343];
+const patscherkofel = [47.2086, 11.4606];
+const igls = [47.2308, 11.4089];
 const markerOptions = {
     title: "Universität Innsbruck",
-    opacity: 0.4,
+    opacity: 0.7,
     draggable: true
 };
-L.marker(uni).addTo(myMap);
-L.marker (usi).addTo(myMap);
-L.marker (technik).addTo(myMap);
-myMap.setView(uni, 14);
+L.marker(uni, markerOptions).addTo(markerGroup);
+L.marker (usi, markerOptions).addTo(markerGroup);
+L.marker (technik, markerOptions).addTo(markerGroup);
+L.marker (igls, markerOptions).addTo(markerGroup);
+
+let patscherkofelMarker = L.marker (patscherkofel, markerOptions).addTo(markerGroup);
+patscherkofelMarker.bindPopup("<p>Patscherkofel</p> <img style= 'width: 300px' src ='https://cdn.pixabay.com/photo/2017/03/11/10/03/igls-2134794_960_720.jpg' alt= 'Patscherkofel' />");
+
+
+myMap.fitBounds(markerGroup.getBounds());
+
+//myMap.setView(uni, 14);
