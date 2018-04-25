@@ -50,10 +50,14 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
 
 
-myMap.setView([47.267,11.383], 11); //http://leafletjs.com/reference-1.3.0.html#locate-options-setview
+myMap.setView([47.267,11.383], 11); //http://leafletjs.com/reference-1.3.0.html#map-setview
 
 
-L.control.scale({maxWidth: 200, imperial: false, position: 'bottomleft'}).addTo(myMap) 
+L.control.scale({
+    maxWidth: 200,
+    imperial: false,
+    position: 'bottomleft'
+}).addTo(myMap) 
 //http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
 //http://leafletjs.com/reference-1.3.0.html#control-scale-maxwidth
 //http://leafletjs.com/reference-1.3.0.html#control-scale-metric
