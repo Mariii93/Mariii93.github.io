@@ -61,3 +61,5 @@ L.control.scale({
 //http://leafletjs.com/reference-1.3.0.html#control-scale-maxwidth
 //http://leafletjs.com/reference-1.3.0.html#control-scale-metric
 //http://leafletjs.com/reference-1.3.0.html#control-scale-position
+
+L.marker([47.264, 11.385]).addTo(myMap);
