@@ -90,7 +90,7 @@ var polyline = L.polyline(latlngs, {color: 'red'}).addTo(myMap);
 
 let uniPolygon = L.polygon ([uni, usi, technik]);
 myMap.addLayer(uniPolygon);
-uni.Polygon.bindPopup ("Ende!");
+
 myMap.fitBounds(polyline.getBounds());
 
 myMap.fitBounds(markerGroup.getBounds());
