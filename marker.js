@@ -82,6 +82,16 @@ L.marker (igls, markerOptions).addTo(markerGroup);
 let patscherkofelMarker = L.marker (patscherkofel, markerOptions).addTo(markerGroup);
 patscherkofelMarker.bindPopup("<p>Patscherkofel</p> <img style= 'width: 300px' src ='https://cdn.pixabay.com/photo/2017/03/11/10/03/igls-2134794_960_720.jpg' alt= 'Patscherkofel' />");
 
+var latlngs = [
+    [47.2086, 11.4606],
+    [47.2308, 11.4089]
+];
+var polyline = L.polyline(latlngs, {color: 'red'}).addTo(myMap);
+
+let uniPolygon = L.polygon ([uni, usi, technik]);
+myMap.addLayer(uniPolygon);
+uni.Polygon.bindPopup ("Ende!");
+myMap.fitBounds(polyline.getBounds());
 
 myMap.fitBounds(markerGroup.getBounds());
 
