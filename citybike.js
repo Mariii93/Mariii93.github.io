@@ -69,7 +69,7 @@ L.control.scale({
 
 async function addGeojson(url) {
     // console.log("Url wird geladen: ", url);
-    const response = await fetch(url);
+    const response = await fetch(url); //holt Variable aus dem Internet
     // console.log("Response ", response);
     const citybikedata = await response.json();
     console.log("GeoJson: ", citybikedata);
@@ -77,7 +77,7 @@ async function addGeojson(url) {
         style: function(feature) {
             return { color: "#ff0000" };
         },
-        pointToLayer: function(geoJsonPoint, latlng) {
+        pointToLayer: function(geoJsonPoint, latlng) { // was wird aus einem ein Punkt im geojson
                 return L.marker(latlng, {
                     icon: L.icon({
                         iconUrl: 'cycling.png'
