@@ -1,6 +1,8 @@
 
 let myMap = L.map("mapdiv"); //http://leafletjs.com/reference-1.3.0.html#map-l-map
-const citybikeGroup = L.featureGroup();
+
+const citybikeGroup = L.markerClusterGroup();
+
 let myLayers = {
     osm : L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"), //http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         subdomains : ["a","b","c"], 
@@ -85,15 +87,21 @@ async function addGeojson(url) {
                 });
         }
     });
-	const popup = geojson.bindPopup(function(layer) {
+	 geojson.bindPopup(function(layer) {
         const props = layer.feature.properties;
         const popupText = `<h1>${props.STATION}</h1>`;
         return popupText;
     
 });
-    citybikeGroup.addLayer(geojson);
-    myMap.fitBounds(citybikeGroup.getBounds());
-	
+var hash = new L.Hash(myMap);
+
+   citybikeGroup.addLayer(geojson);
+   myMap.fitBounds(citybikeGroup.getBounds());
+   myMap.addControl( new L.Control.Search({
+       layer: citybikeGroup, 
+        propertyName: 'STATION'
+    }));
+
 }
 
 const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json"
