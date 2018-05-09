@@ -1,5 +1,6 @@
 
 let myMap = L.map("mapdiv"); //http://leafletjs.com/reference-1.3.0.html#map-l-map
+const citybikeGroup = L.featureGroup();
 let myLayers = {
     osm : L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"), //http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
         subdomains : ["a","b","c"], 
@@ -43,6 +44,8 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "basemap. at Orthofoto" : myLayers.bmaporthofoto30cm, 
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
+    "City Bike Standorte Wien": citybikeGroup, 
+  
     
 },{
     collapsed: false
@@ -63,3 +66,38 @@ L.control.scale({
 // verwendete Optionen: http://leafletjs.com/reference-1.3.0.html#control-scale-maxwidth
 // http://leafletjs.com/reference-1.3.0.html#control-scale-metric
 // http://leafletjs.com/reference-1.3.0.html#control-scale-position
+
+async function addGeojson(url) {
+    // console.log("Url wird geladen: ", url);
+    const response = await fetch(url);
+    // console.log("Response ", response);
+    const citybikedata = await response.json();
+    console.log("GeoJson: ", citybikedata);
+    const geojson = L.geoJSON(citybikedata, {
+        style: function(feature) {
+            return { color: "#ff0000" };
+        },
+        pointToLayer: function(geoJsonPoint, latlng) {
+                return L.marker(latlng, {
+                    icon: L.icon({
+                        iconUrl: 'cycling.png'
+                    })
+                });
+        }
+    });
+	const popup = geojson.bindPopup(function(layer) {
+        const props = layer.feature.properties;
+        const popupText = `<h1>${props.STATION}</h1>`;
+        return popupText;
+    
+});
+    citybikeGroup.addLayer(geojson);
+    myMap.fitBounds(citybikeGroup.getBounds());
+	
+}
+
+const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json"
+
+addGeojson(url);
+
+myMap.addLayer(citybikeGroup);
