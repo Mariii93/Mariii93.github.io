@@ -4,63 +4,63 @@ let myMap = L.map("mapdiv"); //http://leafletjs.com/reference-1.3.0.html#map-l-m
 const citybikeGroup = L.markerClusterGroup();
 
 let myLayers = {
-    osm : L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"), //http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
-        subdomains : ["a","b","c"], 
-        attribution : "Datenquelle: <a href=openstreetmap.org</a>", 
+    osm: L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"), //http://leafletjs.com/reference-1.3.0.html#tilelayer-l-tilelayer
+    subdomains: ["a", "b", "c"],
+    attribution: "Datenquelle: <a href=openstreetmap.org</a>",
 
-    geolandbasemap : L.tileLayer("https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
-        subdomains : ["maps","maps1","maps2","maps3","maps4"], //http://leafletjs.com/reference-1.3.0.html#tilelayer-subdomains
-        attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>", //http://leafletjs.com/reference-1.3.0.html#layer-attribution
+    geolandbasemap: L.tileLayer("https://{s}.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png", {
+        subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"], //http://leafletjs.com/reference-1.3.0.html#tilelayer-subdomains
+        attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>", //http://leafletjs.com/reference-1.3.0.html#layer-attribution
     }
-),
-    bmapoverlay : L.tileLayer("https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", { 
-    subdomains : ["maps","maps1","maps2","maps3","maps4"], 
-    attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>",
+    ),
+    bmapoverlay: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
+        subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+        attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>",
     }
-),
-   
-    bmapgrau : L.tileLayer("https://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png",{
-    subdomains : ["maps","maps1","maps2","maps3","maps4"], 
-    attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>",
+    ),
+
+    bmapgrau: L.tileLayer("https://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png", {
+        subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+        attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>",
     }
-),
-    bmaphidpi : L.tileLayer("https://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg",{
-    subdomains : ["maps","maps1","maps2","maps3","maps4"], 
-    attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>",
+    ),
+    bmaphidpi: L.tileLayer("https://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
+        subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+        attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>",
     }
-),
-    bmaporthofoto30cm : L.tileLayer("https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg",{
-    subdomains : ["maps","maps1","maps2","maps3","maps4"], 
-    attribution : "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>",
+    ),
+    bmaporthofoto30cm: L.tileLayer("https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
+        subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+        attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>",
     }
-),
+    ),
 }
 myMap.addLayer(myLayers.geolandbasemap); //http://leafletjs.com/reference-1.3.0.html#layergroup-addlayer
 
 let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers-l-control-layers
-    "Openstreetmap" : myLayers.osm,
-    "basemap.at Grundkarte" : myLayers.geolandbasemap,
-    "basemap.at Overlay" : myLayers.bmapoverlay,
-    "basemap.at grau" : myLayers.bmapgrau,
-    "basemap.at highdpi" : myLayers.bmaphidpi,
-    "basemap. at Orthofoto" : myLayers.bmaporthofoto30cm, 
-},{
-    "basemap.at Overlay" : myLayers.bmapoverlay,
-    "City Bike Standorte Wien": citybikeGroup, 
-  
-    
-},{
-    collapsed: false
-}); // Sollte eigentlich darüber gehen http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
+    "Openstreetmap": myLayers.osm,
+    "basemap.at Grundkarte": myLayers.geolandbasemap,
+    "basemap.at Overlay": myLayers.bmapoverlay,
+    "basemap.at grau": myLayers.bmapgrau,
+    "basemap.at highdpi": myLayers.bmaphidpi,
+    "basemap. at Orthofoto": myLayers.bmaporthofoto30cm,
+}, {
+        "basemap.at Overlay": myLayers.bmapoverlay,
+        "City Bike Standorte Wien": citybikeGroup,
+
+
+    }, {
+        collapsed: false
+    }); // Sollte eigentlich darüber gehen http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
 
 myMap.addControl(myMapControl); //http://leafletjs.com/reference-1.3.0.html#map-addcontrol
 
-myMap.setView([47.267,11.383], 11); //http://leafletjs.com/reference-1.3.0.html#map-setview
+myMap.setView([47.267, 11.383], 11); //http://leafletjs.com/reference-1.3.0.html#map-setview
 
 
 L.control.scale({
-    imperial: false, 
-    maxWidth: 200, 
+    imperial: false,
+    maxWidth: 200,
     position: "bottomleft"
 }).addTo(myMap)
 
@@ -76,29 +76,29 @@ async function addGeojson(url) {
     const citybikedata = await response.json();
     console.log("GeoJson: ", citybikedata);
     const geojson = L.geoJSON(citybikedata, {
-        style: function(feature) {
+        style: function (feature) {
             return { color: "#ff0000" };
         },
-        pointToLayer: function(geoJsonPoint, latlng) { // was wird aus einem ein Punkt im geojson
-                return L.marker(latlng, {
-                    icon: L.icon({
-                        iconUrl: 'cycling.png'
-                    })
-                });
+        pointToLayer: function (geoJsonPoint, latlng) { // was wird aus einem ein Punkt im geojson
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: 'cycling.png'
+                })
+            });
         }
     });
-	 geojson.bindPopup(function(layer) {
+    geojson.bindPopup(function (layer) {
         const props = layer.feature.properties;
         const popupText = `<h1>${props.STATION}</h1>`;
         return popupText;
-    
-});
-var hash = new L.Hash(myMap);
 
-   citybikeGroup.addLayer(geojson);
-   myMap.fitBounds(citybikeGroup.getBounds());
-   myMap.addControl( new L.Control.Search({
-       layer: citybikeGroup, 
+    });
+    var hash = new L.Hash(myMap);
+
+    citybikeGroup.addLayer(geojson);
+    myMap.fitBounds(citybikeGroup.getBounds());
+    myMap.addControl(new L.Control.Search({
+        layer: citybikeGroup,
         propertyName: 'STATION'
     }));
 
