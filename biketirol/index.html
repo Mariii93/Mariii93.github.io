@@ -16,9 +16,9 @@
 	 <link rel="stylesheet" href="../js/leaflet.fullscreen/leaflet.fullscreen.css" />
     <script src="../js/leaflet.fullscreen/Leaflet.fullscreen.js"></script>
 	
+    <script src="../js/leaflet.gpx/gpx.js"></script>
     <script defer src="biketirol.js"></script>
 	
-	<script src="data/etappe02.geojson.js"></script>
 
 </head>
 
@@ -43,8 +43,15 @@
         <h1>Etappe 02 von Weißenbach nach Tannheim</h1>
 
         <p> Mit rund 17 Kilometern zählt diese Route zu einer der kürzeren, steht den anderen Touren aber hinsichtlich ihrer Geschichte und landschaftlichen Schönheit in nichts nach. Kurz nach dem Start in Weißenbach sind 250 Höhenmeter zu überwinden, dieser Abschnitt führt durch eine atemberaubende Schlucht. Sobald der Talboden des Tannheimer Tals erreicht ist, führt die Strecke an saftigen Wiesen und am glasklaren Haldensee vorbei, wo sich die Bergwelt von ihrer idylischen Seite zeigt.</p>
- 
-        <div id="map" style="width:900px; height:600px"></div>;
+        <p> Tourdaten Gesamtlänge <span id= "laenge"></span>m,
+            tiefster Punkt <span id= "tiefster Punkt"></span>m,
+            höchster Punkt <span id= "höchster Punkt"></span>m,
+            Aufstieg <span id= "Aufstieg"></span>m,
+            Abstieg <span id= "Abstieg"></span>m.</p>
+
+
+
+        <div id="map" style="width:900px; height:600px"></div>
 
         <h2>Streckenbeschreibung</h2>
         <p>Auf den ersten paar hundert Metern nach der Abzweigung „Alter Gaichtpass – Tannheimer Tal“ durchquert man zunächst Weißenbach am Lech, ehe man vor der Brücke des Weißenbachs den Radwegweisern Richtung Tannheimer Tal folgt. Nach einem halben Kilometer wechselt man die Bachseite und gelangt zur alten Gaichtpassstraße. Dem Schotterweg folgt man auf einer Anhöhe über der Weißenbachklamm, bis man die Tannheimer Tal Straße (B199) erreicht. Diese wird überquert und nach einer kurzen Schiebestrecke erreicht man den Weiler Gaicht (etwa 1 h von Weißenbach), der bereits am Talboden des Tannheimer Tals liegt. Nun radelt man durch Wälder und Wiesen am Tannheimer Tal Radweg bis zur Straße und unterquert diese etwa 100 Meter nördlich zur anderen Talseite. Hier bleibt man immer auf dem bestens beschilderten Radweg Richtung Tannheim. Der Haldensee wird an seinem Südufer passiert, weiter geht es durch den Ort Haldensee und in Folge südlich an Grän vorbei. Nun sind es nur mehr 3 Kilometer durch Wiesen und Felder bis Tannheim (immer am Radweg). Kurz vor dem Ort wird nochmals die Straße unterquert, ehe man in gut 200 Metern das Zentrum bei der Kirche erreicht (ca. 1 h 15 min ab Gaicht).</p>
@@ -71,9 +78,9 @@
 	
 
     <div id="footer" class="gray">
-        <a class="back" href="../01/index.html">
-            <i class="fas fa-arrow-alt-circle-left"></i> vorhergehender Stop</a>
-        <a class="next" href="..//03index.html">nächster Stop
+        <!--<a class="back" href="../02/index.html">
+            <i class="fas fa-arrow-alt-circle-left"></i> vorhergehender Stop</a>-->
+        <a class="next" href="https://xo333.github.io/biketirol/index.html">nächster Stop
             <i class="fas fa-arrow-alt-circle-right"></i>
         </a>
     </div>
