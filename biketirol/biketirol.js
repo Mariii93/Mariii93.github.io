@@ -1,8 +1,8 @@
-
 let myMap = L.map("map", {
 	fullscreenControl: true
 	}); 
 let markerGroup = L.featureGroup();
+let overlaySteigung = L.featureGroup().addTo(myMap);
 let myLayers = {
     osm : L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"), 
         subdomains : ["a","b","c"], 
@@ -47,9 +47,10 @@ let myMapControl = L.control.layers({
 },{
     "basemap.at Overlay" : myLayers.bmapoverlay,
 	"Nomenklatur Overlay" : myLayers.elektronischeKarteNomenklatur,
-    "Start und Ziel" : markerGroup 
+	// "Start und Ziel" : markerGroup,
+	"Steigungslinie" : overlaySteigung,
 },{
-    collapsed: false
+    collapsed: true,
 }); 
 
 myMap.addControl(myMapControl); 
@@ -92,10 +93,15 @@ zielMarker.bindPopup("<p> Ziel in Tannheim</p><img style='width:100px' 7> <a hre
 //	const popupText = `<p>${props.coordinates}</p>`;
 //	return popupText;
 //});
+let hoehenprofil = L.control.elevation({
+	position:"topright",
+	theme : "steelblue-theme",
+	collapsed : true,
+}).addTo(myMap)
 
 let gpxTrack = new L.GPX("data/etappe02.gpx", {
 	async : true
-}).addTo(markerGroup);
+})//.addTo(markerGroup);
 gpxTrack.on("loaded", function(evt) {
 	console.log("get_distance",evt.target.get_distance().toFixed(0))
 	console.log("get_elevation_min",evt.target.get_elevation_min().toFixed(0))
@@ -118,7 +124,68 @@ gpxTrack.on("loaded", function(evt) {
 	let abstieg = evt.target.get_elevation_loss().toFixed(0);
 	document.getElementById("Abstieg").innerHTML = abstieg;
 
-	myMap.fitBounds(evt.target.getBounds());
-})
+	myMap.fitBounds(evt.target.getBounds())
+	
+	
+});
+gpxTrack.on('addline', function (evt){
+	hoehenprofil.addData(evt.line);
+	console.log(evt.line);
+	console.log(evt.line.getLatLngs());
+	console.log(evt.line.getLatLngs([0]));
+	console.log(evt.line.getLatLngs()[0].lat);
+	console.log(evt.line.getLatLngs()[0].lngs);
+	console.log(evt.line.getLatLngs()[0].meta);
+	console.log(evt.line.getLatLngs()[0].meta.ele);
+
+
+	// alle Segmente der Steigungslinie hinzufügen
+	let gpxLinie = evt.line.getLatLngs()
+	for (let i = 1; i < gpxLinie.length; i++) {
+		let p1 = gpxLinie[i-1];
+		let p2 = gpxLinie[i];
+		console.log(p1.lat, p1.lng, p2.lat, p2.lng);
+		let dist = myMap.distance(
+			[p1.lat, p1.lng],
+			[p2.lat, p2.lng],
+		);
+		console.log([p1.lat, p1.lng],[p2.lat, p2.lng], dist);
+
+		//höhenunterschied berechnen
+		let delta = p2.meta.ele - p1.meta.ele;
+		console.log([p1.lat, p1.lng],[p2.lat, p2.lng], delta);
+
+		// Steigung in % berechnen
+		 //let proz = 0;
+		//if (dist > 0) {
+		//	proz = (delta / dist * 100.0).toFixed(1);
+		//}
+		let proz = (dist > 0) ? (delta / dist * 100.0).toFixed(1) : 0;
+		// Bedingung ? Ausdruck 1 : Ausdruck 2
+		console.log([p1.lat, p1.lng],[p2.lat, p2.lng], proz);
+
+		let farbe = 
+			proz >  10  ? "#d73027" :
+			proz >   6  ? "#fc8d59" :
+			proz >   2  ? "#fee08b" :
+			proz >   0  ? "#ffffbf" :
+			proz >  -2  ? "#d9ef8b" :
+			proz >  -6  ? "#91cf60" :
+			proz > -10  ? "#66bd63" :
+						  "#1a9850" ;
+
+						
+
+		let segmet = L.polyline(
+			[
+				[p1.lat, p1.lng],
+				[p2.lat, p2.lng],
+			], {
+				color: farbe,
+				weight : 10,
+			}
+		).addTo(overlaySteigung);
+		}				  
+});
 
 //myMap.fitBounds(markerGroup.getBounds());
